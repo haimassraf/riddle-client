@@ -1,8 +1,9 @@
 import React from 'react'
+import { Link } from 'react-router'
 
 const Game = () => {
   return (
-    <div>Game</div>
+    <Link to={'/index/end-game'}>End Game</Link>
   )
 }
 

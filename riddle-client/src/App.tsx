@@ -7,6 +7,7 @@ import Home from './pages/Home'
 import Index from './components/Index'
 import Game from './pages/Game'
 import EndGame from './pages/EndGame'
+import './App.css'
 
 const App = () => {
   return (
@@ -18,7 +19,7 @@ const App = () => {
       </Route>
       <Route path='start-game-guest' element={<StartGame isGuest={true} />} />
       <Route path='index' element={<Index />}>
-        <Route path='home' element={<Home />} />
+        <Route path='' element={<Home />} />
         <Route path='game' element={<Game />} />
         <Route path='end-game' element={<EndGame />} />
       </Route>

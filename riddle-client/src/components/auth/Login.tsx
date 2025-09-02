@@ -1,11 +1,15 @@
 import React from 'react'
-import { Outlet } from 'react-router'
+import { Link, Outlet } from 'react-router'
 
 const Login = () => {
     return (
         <>
             <h2>login</h2>
-            <input type="text" />
+            <form action="">
+                <input type="text" placeholder='name' />
+                <input type="password" placeholder='password' />
+                <Link to={'/index'}>Login</Link>
+            </form>
         </>
     )
 }

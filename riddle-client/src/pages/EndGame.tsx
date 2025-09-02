@@ -1,8 +1,13 @@
 import React from 'react'
+import { Link } from 'react-router'
 
 const EndGame = () => {
   return (
-    <div>EndGame</div>
+    <>
+    <button>
+        <Link to={'/index'}>Back to Main Menu</Link>
+    </button>
+    </>
   )
 }
 
