@@ -7,6 +7,7 @@ const Signup = () => {
   const [password, setPassword] = useState<string>("");
   const [matchPassword, setMatchPassword] = useState<string>("");
   const [message, setMessage] = useState<string>("");
+  const [loadin, setLoadin] = useState<boolean>(false)
 
   const navigate = useNavigate();
 
@@ -21,7 +22,9 @@ const Signup = () => {
         name: name.toLowerCase(),
         password
       }
+      setLoadin(true)
       const res = await makeRequest('/auth/signup', 'POST', body);
+      setLoadin(false)
       if (res.token) {
         alert('Sign up successfully');
         navigate('/index')
@@ -73,7 +76,7 @@ const Signup = () => {
 
         <button type="submit">Signup</button>
         <Link to="/login">Already have an account? Please login</Link>
-
+        {loadin && <p className="loading">Loading...</p>}
         {message && <p className="failed">{message}</p>}
       </form>
     </>
