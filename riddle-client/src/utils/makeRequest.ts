@@ -1,26 +1,23 @@
-export default async function makeRequest(url: string, method: string = 'GET', body: unknown = null) {
+export default async function makeRequest(url: string, method: string = 'GET', body: unknown = null, credentials: boolean = false) {
     try {
         const options: RequestInit = {
             method,
-            headers: { 'Content-Type': 'application/json' },
-            credentials: 'include',
+            headers: { 'Content-Type': 'application/json' }
         };
 
-        if (body) {
-            options.body = JSON.stringify(body);
-        }
+        if (body) options.body = JSON.stringify(body);
+        if (credentials) options.credentials = 'include';
 
         await new Promise(resolve => setTimeout(resolve, 1000))
 
         const res = await fetch(`http://localhost:3000${url}`, options);
 
         if (res.status === 401) {
-            console.log('Token expired of invalid. Please login again.')
-            return null;
+            return ('Token expired of invalid. Please login again.');
         }
         if (!res.ok) {
             const errText = await res.text();
-            throw new Error(errText);
+            return (errText);
         }
 
         const contentType = res.headers.get('Content-Type');
@@ -29,7 +26,6 @@ export default async function makeRequest(url: string, method: string = 'GET', b
             : await res.text();
 
     } catch (err: any) {
-        console.error('Error in make request:', err.message);
-        return null;
+        return (`Error in make request: ${err.message}`);
     }
 }

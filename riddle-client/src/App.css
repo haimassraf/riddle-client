@@ -4,15 +4,12 @@
   box-sizing: border-box;
 }
 
-body {
+#root {
   background-color: blanchedalmond;
-}
-
-header {
   display: flex;
-  justify-content: space-around;
-  background-color: bisque;
-  height: 5vh;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
 }
 
 section {
@@ -20,22 +17,101 @@ section {
   gap: 1rem;
 }
 
-main{
+main {
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: space-evenly;
   align-items: center;
   height: 90vh;
 }
 
-button {
+button,
+.btn {
   width: 7rem;
-  height: 5vh;
+  min-height: 5vh;
+  cursor: pointer;
+  border: 2px solid black;
   border-radius: 12px;
-  cursor: pointer
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 a {
   text-decoration: none;
-  color: purple;
+  color: darkblue;
+}
+
+.buttons {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 2rem;
+}
+
+h1,
+h2 {
+  text-align: center;
+}
+
+.loginPage {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 80%;
+  justify-content: center;
+  background-color: lightyellow;
+  padding: 0 2rem;
+  border-radius: 12px;
+  height: 70vh;
+  gap: 1rem;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+}
+
+section{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+input, select {
+  width: 20rem;
+  min-height: 5vh;
+  border-radius: 12px;
+  display: block;
+  padding-left: 1rem;
+}
+
+.failed {
+  color: rgb(176, 17, 17);
+}
+
+.gamePage {
+  width: 100%;
+  height: 100vh;
+}
+
+header {
+  background-color: lightyellow;
+  padding: 1rem 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logout {
+  background-color: brown;
+  color: white;
+}
+
+label{
+  display: inline-block;
 }
