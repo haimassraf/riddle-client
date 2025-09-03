@@ -1,5 +1,6 @@
 import { useState, type FormEvent } from "react";
 import { Link, useNavigate } from "react-router";
+import makeRequest from "../../utils/makeRequest";
 
 const Signup = () => {
   const [name, setName] = useState<string>("");
@@ -9,13 +10,25 @@ const Signup = () => {
 
   const navigate = useNavigate();
 
-  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (password !== matchPassword) {
       setMessage("Passwords do not match!");
       return;
     }
-    navigate("/index");
+    try {
+      const body = {
+        name: name.toLowerCase(),
+        password
+      }
+      const res = await makeRequest('/auth/signup', 'POST', body);
+      if (res.token) {
+        alert('Sign up successfully');
+        navigate('/index')
+      } else {
+        setMessage(res);
+      }
+    } catch (err: any) { setMessage(err.message) }
   };
 
   return (

@@ -12,7 +12,7 @@ const Login = () => {
         e.preventDefault();
         try {
             const body = {
-                name,
+                name: name.toLowerCase(),
                 password
             }
             const res = await makeRequest('/auth/login', 'POST', body);
@@ -20,7 +20,7 @@ const Login = () => {
                 alert('Logged in successfully');
                 navigate("/index");
             } else {
-                setMessage('Wrong User Name or Password');
+                setMessage(res);
             }
         } catch (err: any) { setMessage(`Error: ${err.message}`) }
     };

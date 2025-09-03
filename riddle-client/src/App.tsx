@@ -1,5 +1,5 @@
 import { Route, Routes } from 'react-router'
-import LandingPage from './pages/LandingPage'
+import LandingPage from './components/authPages/LandingPage'
 import Login from './components/authPages/Login'
 import Signup from './components/authPages/Signup'
 import StartGame from './components/StartGame'
