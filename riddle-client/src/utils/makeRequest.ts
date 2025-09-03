@@ -2,8 +2,7 @@ export default async function makeRequest(url: string, method: string = 'GET', b
     try {
         const options: RequestInit = {
             method,
-            headers: { 'Content-Type': 'application/json' },
-            credentials: 'include',
+            headers: { 'Content-Type': 'application/json' }
         };
 
         if (body) {
@@ -20,7 +19,7 @@ export default async function makeRequest(url: string, method: string = 'GET', b
         }
         if (!res.ok) {
             const errText = await res.text();
-            throw new Error(errText);
+            return (errText);
         }
 
         const contentType = res.headers.get('Content-Type');
@@ -29,7 +28,6 @@ export default async function makeRequest(url: string, method: string = 'GET', b
             : await res.text();
 
     } catch (err: any) {
-        console.error('Error in make request:', err.message);
-        return null;
+        return (`Error in make request: ${err.message}`);
     }
 }
