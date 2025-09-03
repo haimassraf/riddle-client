@@ -11,7 +11,7 @@ const Index = () => {
                 </section>
                 <section>
                     <button>
-                        <Link to={'/landing-page'} >Logout</Link>
+                        <Link to={'/'} >Logout</Link>
                     </button>
                 </section>
             </header>
