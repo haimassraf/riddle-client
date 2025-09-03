@@ -10,7 +10,7 @@ export default async function makeRequest(url: string, method: string = 'GET', b
 
         await new Promise(resolve => setTimeout(resolve, 1000))
 
-        const res = await fetch(`http://localhost:3000${url}`, options);
+        const res = await fetch(`https://riddleprojectserver-1.onrender.com${url}`, options);
 
         if (res.status === 401) {
             return ('Token expired of invalid. Please login again.');
