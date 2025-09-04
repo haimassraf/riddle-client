@@ -8,7 +8,7 @@ const ChooseDifficulty = () => {
 
     function handleSubmit(e: React.FormEvent) {
         e.preventDefault();
-        if (!difficulty){
+        if (!difficulty) {
             setMessage("Please Choose a Difficulty")
             return
         }

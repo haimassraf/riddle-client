@@ -1,29 +1,73 @@
 import { useEffect, useState } from 'react';
-import { Link, useParams } from 'react-router'
+import { useNavigate, useParams } from 'react-router';
 import makeRequest from '../utils/makeRequest';
+import ShowRiddle from './ShowRiddle';
 
 const Game = () => {
+
+  type Riddle = {
+    id: string,
+    name: string,
+    taskDescription: string,
+    correctAnswer: string,
+    difficulty: string,
+    hint?: string,
+    timeLimit?: number
+    choices?: string[]
+  }
+
+  const navigate = useNavigate();
   const { difficulty } = useParams<{ difficulty: string }>();
-  const [riddles, setRiddles] = useState(null)
-  const [loading, setLoadin] = useState<boolean>(false)
+  const [loading, setLoading] = useState<boolean>(false);
+  const [riddleIndex, setRiddleIndex] = useState<number>(0);
+  const [riddles, setRiddles] = useState<Riddle[]>([]);
+  const [message, setMessage] = useState<string>('');
+  const [time, setTime] = useState<number>(0);
 
   useEffect(() => {
     const fetchRiddles = async () => {
-      setLoadin(true)
-      const allRiddles = await makeRequest(`/riddle/riddleByLevel/${difficulty}`);
-      setLoadin(false)
-      setRiddles(allRiddles);
+      setLoading(true);
+      try {
+        const allRiddlesByLevel: Riddle[] = await makeRequest(`/riddle/riddleByLevel/${difficulty}`);
+        setRiddles(allRiddlesByLevel);
+      } catch (err) {
+        setMessage("Problem with getting the riddles, please try again");
+      }
+      setLoading(false);
     };
     fetchRiddles();
+  }, [difficulty]);
+
+
+  useEffect(() => {
+    if (riddleIndex >= riddles.length && riddles.length > 0) {
+      navigate('/index');
+    }
+  }, [riddleIndex]);
+
+
+  useEffect(() => {
+    const time = setInterval(() => {
+      setTime((prev) => prev + 1)
+    }, 1000);
+    return () => clearInterval(time)
   }, [])
-  console.log(riddles)
+
   return (
-    <>
-      <h3>{difficulty || 'NONE'}</h3>
-      <Link to={'/index/end-game'}>end game</Link>
-      {loading && <p className='loading'>Loading</p>}
-    </>
+    <div className='riddlePage'>
+      <div className="timer">
+        <p>Time Passed: {time} Secound</p>
+      </div>
+      {loading && <p className='loading'>Loading...</p>}
+      {message && <p className='failed'>{message}</p>}
+      {!loading && riddles[riddleIndex] && (
+        <ShowRiddle
+          riddle={riddles[riddleIndex]}
+          setIndex={setRiddleIndex}
+        />
+      )}
+    </div>
   )
 }
 
-export default Game
+export default Game;
