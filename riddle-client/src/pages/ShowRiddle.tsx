@@ -16,7 +16,6 @@ const ShowRiddle = ({ riddle, setIndex }: { riddle: Riddle, setIndex: Function }
     const [message, setMessage] = useState<string>("");
     const [isChoices, setIsChoices] = useState<boolean>(false)
 
-
     useEffect(() => {
         if (riddle.choices) {
             setIsChoices(true);

@@ -29,9 +29,12 @@ const Game = () => {
       setLoading(true);
       try {
         const allRiddlesByLevel: Riddle[] = await makeRequest(`/riddle/riddleByLevel/${difficulty}`);
+        if (!allRiddlesByLevel[0].name) {
+          setMessage("Faild to get data")
+        }
         setRiddles(allRiddlesByLevel);
       } catch (err) {
-        setMessage("Problem with getting the riddles, please try again");
+        setMessage("Problem with getting the riddles, please try again later");
       }
       setLoading(false);
     };
@@ -46,12 +49,16 @@ const Game = () => {
   }, [riddleIndex]);
 
 
-  useEffect(() => {
-    const time = setInterval(() => {
-      setTime((prev) => prev + 1)
+useEffect(() => {
+  if (!loading) {
+    const intervalId = setInterval(() => {
+      setTime((prev) => prev + 1);
     }, 1000);
-    return () => clearInterval(time)
-  }, [])
+
+    return () => clearInterval(intervalId);
+  }
+}, [loading]);
+
 
   return (
     <div className='riddlePage'>
